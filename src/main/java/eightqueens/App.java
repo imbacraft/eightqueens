@@ -92,4 +92,24 @@ public class App {
 
     return true;
   }
+
+  private static boolean diagonalRowIsFree(int[][] board, int row, int column) {
+
+    if (downRightDiagonalDirectionIsFree(board, row, column) && )
+
+    return true;
+  }
+
+  private static boolean downRightDiagonalDirectionIsFree(int[][] board, int row, int column) {
+
+    for (int i = 0; i < board.length; i++) {
+
+      if (board[row + i][column + i] == 1) {
+
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
