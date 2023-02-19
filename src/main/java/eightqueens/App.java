@@ -3,75 +3,85 @@ package eightqueens;
 import java.util.Arrays;
 
 /**
- * OBJECTIVE:
- * Place 8 queens on a chessboard in such way that none of the queens can take each other.
+ * OBJECTIVE: Place 8 queens on a board in such way that none of the queens can take each other.
  *
- * Chessboard has 8x8 tiles.
+ * <p>Board has 8x8 tiles.
  *
- * The program must print a two dimensional array  where 1 means the queen is there, 0 means the queen is not there.
+ * <p>The program must print a two dimensional array where 1 means the queen is there, 0 means the
+ * queen is not there.
  *
- * End result looks like this:
- * 0 0 1 0 0 0 0 0
- * 0 0 0 0 1 0 0 0
- * 0 0 0 0 0 0 1 0
- * 0 1 0 0 0 0 0 0
- * 0 0 0 1 0 0 0 0
- * 0 0 0 0 0 1 0 0
- * 0 0 0 0 0 0 0 1
- * 0 0 0 0 0 0 0 0
- *
- *
+ * <p>End result looks like this: 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0
+ * 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
  */
-public class App  {
+public class App {
 
-    public static void main( String[] args ) {
+  public static void main(String[] args) {
 
-        int[][] chessboard = new int[8][8];
+    int[][] board = new int[8][8];
 
-        fillRow(chessboard);
+    fillBoardWithZeroes(board);
 
-        printChessboard(chessboard);
+    printBoard(board);
+  }
 
+  private static void fillBoardWithZeroes(int[][] board) {
+
+    for (int i = 0; i < board.length; i++) {
+
+      Arrays.fill(board[i], 0);
+    }
+  }
+
+  private static void placeQueen(int[][] board) {
+
+    try {
+
+      for (int i = 0; i < board.length; i++) {
+
+        board[i][i] = queenIsHere;
+
+        Arrays.fill(board[i], i + 1, board[i].length, queenIsNotHere);
+      }
+
+    } catch (ArrayIndexOutOfBoundsException e) {
+
+      e.printStackTrace();
+    }
+  }
+
+  private static void printBoard(int[][] board) {
+
+    for (int[] row : board) {
+
+      System.out.println(Arrays.toString(row));
+    }
+  }
+
+  private static boolean horizontalRowIsFree(int[][] board, int rowToCheck) {
+
+    for (int i = 0; i < board.length; i++) {
+
+      if (board[rowToCheck][i] == 1) {
+
+        return false;
+
+      }
     }
 
+    return true;
+  }
 
-    private static void fillRow(int[][] chessboard) {
+  private static boolean verticalRowIsFree(int[][] board, int column) {
 
-        short queenIsHere = 1;
-        short queenIsNotHere = 0;
+    for (int i = 0; i < board.length; i++) {
 
-        try {
+      if (board[i][column] == 1) {
 
+        return false;
 
-        for (int i=0; i<chessboard.length; i++) {
-
-            chessboard[i][i] = queenIsHere;
-
-            Arrays.fill(chessboard[i], i+1, chessboard[i].length, queenIsNotHere);
-
-
-        }
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-
-
-            e.printStackTrace();
-
-        }
-
-
-
+      }
     }
 
-    private static void printChessboard(int[][] chessboard) {
-
-
-        for (int[] row : chessboard){
-
-        System.out.println(Arrays.toString(row));
-
-        }
-
-    }
-
+    return true;
+  }
 }
