@@ -41,7 +41,8 @@ public class App {
 
       while (rowCounter < board.length) {
 
-        for (column = 0; column < board.length; column++) {
+        column = 0;
+        for (; column < board.length; column++) {
 
           if (horizontalRowIsFree(board, rowCounter)
               && verticalRowIsFree(board, column)
@@ -50,19 +51,14 @@ public class App {
             board[rowCounter][column] = 1;
             break;
           }
-
-          // If this is true, it means the solution is wrong.
-          if (column == board.length - 1 && board[rowCounter][column] == 0) {
-
-
+          // weird syntax here, but valid
+          else
+            while (column == board.length - 1) {
               int queenIndex = indexWhereTheQueenIs(board, rowCounter);
-
-              board[rowCounter-1][queenIndex] = 0;
-
-
-
-            break;
-          }
+              board[rowCounter - 1][queenIndex] = 0;
+              rowCounter--;
+              column = queenIndex;
+            }
         }
 
         rowCounter++;
@@ -253,21 +249,16 @@ public class App {
     return true;
   }
 
+  private static int indexWhereTheQueenIs(int[][] board, int rowCounter) {
 
-    private static int indexWhereTheQueenIs(int[][] board, int rowCounter){
+    for (int i = 0; i < board.length; i++) {
 
+      if (board[rowCounter - 1][i] == 1) {
 
-        for (int i = 0; i < board.length; i++){
-
-
-        if (board[rowCounter-1][i] == 1){
-
-            return i;
-        }
-
-        }
-
-        return 0;
-
+        return i;
+      }
     }
+
+    return 0;
+  }
 }
