@@ -13,7 +13,7 @@ import java.util.Arrays;
  * <p>End result looks like this: 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0
  * 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
  */
-public class App {
+public class EightQueens {
 
   public static void main(String[] args) {
 
