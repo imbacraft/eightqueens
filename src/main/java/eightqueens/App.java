@@ -35,18 +35,26 @@ public class App {
   private static void placeQueen(int[][] board) {
 
     int rowCounter = 0;
+    int column;
 
     try {
 
       while (rowCounter < board.length) {
 
-        for (int column = 0; column < board.length; column++) {
+        for (column = 0; column < board.length; column++) {
 
           if (horizontalRowIsFree(board, rowCounter)
               && verticalRowIsFree(board, column)
               && diagonalRowIsFree(board, rowCounter, column)) {
 
             board[rowCounter][column] = 1;
+            break;
+          }
+
+          // If this is true, it means the solution is wrong.
+          if (column == board.length - 1 && board[rowCounter][column] == 0) {
+
+            break;
           }
         }
 
@@ -97,7 +105,8 @@ public class App {
 
     if (downRightDiagonalDirectionIsFree(board, row, column)
         && downLeftDiagonalDirectionIsFree(board, row, column)
-        && upperLeftDiagonalDirectionIsFree(board, row, column)) {
+        && upperLeftDiagonalDirectionIsFree(board, row, column)
+        && upperRightDiagonalDirectionIsFree(board, row, column)) {
 
       return true;
     }
@@ -141,16 +150,15 @@ public class App {
         rowToCheck = row + i;
         columnToCheck = column - i;
 
-        if (rowToCheck == board.length){
+        if (rowToCheck == board.length) {
 
-            break;
+          break;
         }
 
         if (columnToCheck < 0) {
 
-            break;
+          break;
         }
-
 
         if (board[rowToCheck][columnToCheck] == 1) {
 
@@ -178,16 +186,51 @@ public class App {
         rowToCheck = row - i;
         columnToCheck = column - i;
 
-        if (rowToCheck < 0){
+        if (rowToCheck < 0) {
 
-            break;
+          break;
         }
 
         if (columnToCheck < 0) {
 
-            break;
+          break;
         }
 
+        if (board[rowToCheck][columnToCheck] == 1) {
+
+          return false;
+        }
+      }
+
+    } catch (ArrayIndexOutOfBoundsException e) {
+
+      e.printStackTrace();
+    }
+
+    return true;
+  }
+
+  private static boolean upperRightDiagonalDirectionIsFree(int[][] board, int row, int column) {
+
+    try {
+
+      int rowToCheck;
+      int columnToCheck;
+
+      for (int i = 0; i < board.length; i++) {
+
+        rowToCheck = row - i;
+        columnToCheck = column + i;
+
+        if (rowToCheck < 0) {
+
+          break;
+        }
+
+        if (columnToCheck == board.length) {
+
+          break;
+        }
 
         if (board[rowToCheck][columnToCheck] == 1) {
 
