@@ -20,9 +20,7 @@ public class App {
     int[][] board = new int[8][8];
 
     fillBoardWithZeroes(board);
-
     placeQueen(board);
-
     printBoard(board);
   }
 
@@ -42,11 +40,13 @@ public class App {
 
       while (rowCounter < board.length) {
 
-        for (int i = 0; i < board.length; i++) {
+        for (int column = 0; column < board.length; column++) {
 
-          if (horizontalRowIsFree(board, rowCounter) && verticalRowIsFree(board, i)) {
+          if (horizontalRowIsFree(board, rowCounter)
+              && verticalRowIsFree(board, column)
+              && diagonalRowIsFree(board, rowCounter, column)) {
 
-            board[rowCounter][i] = 1;
+            board[rowCounter][column] = 1;
           }
         }
 
@@ -95,19 +95,71 @@ public class App {
 
   private static boolean diagonalRowIsFree(int[][] board, int row, int column) {
 
-    if (downRightDiagonalDirectionIsFree(board, row, column) && )
+    if (downRightDiagonalDirectionIsFree(board, row, column)
+        && downLeftDiagonalDirectionIsFree(board, row, column)) {
 
-    return true;
+      return true;
+    }
+
+    return false;
   }
 
   private static boolean downRightDiagonalDirectionIsFree(int[][] board, int row, int column) {
 
+    int rowToCheck;
+    int columnToCheck;
+
     for (int i = 0; i < board.length; i++) {
 
-      if (board[row + i][column + i] == 1) {
+      rowToCheck = row + i;
+      columnToCheck = column + i;
+
+      if (rowToCheck == board.length || columnToCheck == board.length) {
+
+        break;
+      }
+
+      if (board[rowToCheck][columnToCheck] == 1) {
 
         return false;
       }
+    }
+
+    return true;
+  }
+
+  private static boolean downLeftDiagonalDirectionIsFree(int[][] board, int row, int column) {
+
+    try {
+
+      int rowToCheck;
+      int columnToCheck;
+
+      for (int i = 0; i < board.length; i++) {
+
+        rowToCheck = row + i;
+        columnToCheck = column - i;
+
+        if (rowToCheck == board.length){
+
+            break;
+        }
+
+        if (columnToCheck < 0) {
+
+            break;
+        }
+
+
+        if (board[rowToCheck][columnToCheck] == 1) {
+
+          return false;
+        }
+      }
+
+    } catch (ArrayIndexOutOfBoundsException e) {
+
+      e.printStackTrace();
     }
 
     return true;
