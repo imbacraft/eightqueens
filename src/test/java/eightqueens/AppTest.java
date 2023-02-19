@@ -1,4 +1,4 @@
-package aef;
+package eightqueens;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
