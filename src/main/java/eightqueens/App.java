@@ -54,6 +54,13 @@ public class App {
           // If this is true, it means the solution is wrong.
           if (column == board.length - 1 && board[rowCounter][column] == 0) {
 
+
+              int queenIndex = indexWhereTheQueenIs(board, rowCounter);
+
+              board[rowCounter-1][queenIndex] = 0;
+
+
+
             break;
           }
         }
@@ -245,4 +252,22 @@ public class App {
 
     return true;
   }
+
+
+    private static int indexWhereTheQueenIs(int[][] board, int rowCounter){
+
+
+        for (int i = 0; i < board.length; i++){
+
+
+        if (board[rowCounter-1][i] == 1){
+
+            return i;
+        }
+
+        }
+
+        return 0;
+
+    }
 }
