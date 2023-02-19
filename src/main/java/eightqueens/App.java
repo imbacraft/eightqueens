@@ -96,7 +96,8 @@ public class App {
   private static boolean diagonalRowIsFree(int[][] board, int row, int column) {
 
     if (downRightDiagonalDirectionIsFree(board, row, column)
-        && downLeftDiagonalDirectionIsFree(board, row, column)) {
+        && downLeftDiagonalDirectionIsFree(board, row, column)
+        && upperLeftDiagonalDirectionIsFree(board, row, column)) {
 
       return true;
     }
@@ -141,6 +142,43 @@ public class App {
         columnToCheck = column - i;
 
         if (rowToCheck == board.length){
+
+            break;
+        }
+
+        if (columnToCheck < 0) {
+
+            break;
+        }
+
+
+        if (board[rowToCheck][columnToCheck] == 1) {
+
+          return false;
+        }
+      }
+
+    } catch (ArrayIndexOutOfBoundsException e) {
+
+      e.printStackTrace();
+    }
+
+    return true;
+  }
+
+  private static boolean upperLeftDiagonalDirectionIsFree(int[][] board, int row, int column) {
+
+    try {
+
+      int rowToCheck;
+      int columnToCheck;
+
+      for (int i = 0; i < board.length; i++) {
+
+        rowToCheck = row - i;
+        columnToCheck = column - i;
+
+        if (rowToCheck < 0){
 
             break;
         }
