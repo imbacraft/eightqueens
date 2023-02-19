@@ -3,20 +3,17 @@ package eightqueens;
 import java.util.Arrays;
 
 /**
- * OBJECTIVE: Place 8 queens on a board in such way that none of the queens can take each other.
- *
- * <p>Board has 8x8 tiles.
+ * OBJECTIVE: Place 8 queens on a chessboard in such way that none of the queens can take each other.
  *
  * <p>The program must print a two dimensional array where 1 means the queen is there, 0 means the
  * queen is not there.
  *
- * <p>End result looks like this: 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0
- * 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
  */
 public class EightQueens {
 
   public static void main(String[] args) {
 
+    //Default chessboard is 8x8, but can be set to different values.
     int[][] board = new int[8][8];
 
     fillBoardWithZeroes(board);
