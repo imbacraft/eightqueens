@@ -21,6 +21,8 @@ public class App {
 
     fillBoardWithZeroes(board);
 
+    placeQueen(board);
+
     printBoard(board);
   }
 
@@ -34,13 +36,21 @@ public class App {
 
   private static void placeQueen(int[][] board) {
 
+    int rowCounter = 0;
+
     try {
 
-      for (int i = 0; i < board.length; i++) {
+      while (rowCounter < board.length) {
 
-        board[i][i] = queenIsHere;
+        for (int i = 0; i < board.length; i++) {
 
-        Arrays.fill(board[i], i + 1, board[i].length, queenIsNotHere);
+          if (horizontalRowIsFree(board, rowCounter) && verticalRowIsFree(board, i)) {
+
+            board[rowCounter][i] = 1;
+          }
+        }
+
+        rowCounter++;
       }
 
     } catch (ArrayIndexOutOfBoundsException e) {
@@ -64,7 +74,6 @@ public class App {
       if (board[rowToCheck][i] == 1) {
 
         return false;
-
       }
     }
 
@@ -78,7 +87,6 @@ public class App {
       if (board[i][column] == 1) {
 
         return false;
-
       }
     }
 
