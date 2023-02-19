@@ -26,12 +26,51 @@ public class App  {
 
     public static void main( String[] args ) {
 
-        int[][] chessboard = new int[8][2];
+        int[][] chessboard = new int[8][8];
 
-        chessboard[0][0] = 1;
+        fillRow(chessboard);
+
+        printChessboard(chessboard);
+
+    }
+
+
+    private static void fillRow(int[][] chessboard) {
+
+        short queenIsHere = 1;
+        short queenIsNotHere = 0;
+
+        try {
+
+
+        for (int i=0; i<chessboard.length; i++) {
+
+            chessboard[i][i] = queenIsHere;
+
+            Arrays.fill(chessboard[i], i+1, chessboard[i].length, queenIsNotHere);
+
+
+        }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+
+            e.printStackTrace();
+
+        }
 
 
 
+    }
+
+    private static void printChessboard(int[][] chessboard) {
+
+
+        for (int[] row : chessboard){
+
+        System.out.println(Arrays.toString(row));
+
+        }
 
     }
 
